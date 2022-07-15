@@ -1757,11 +1757,10 @@ func TestLeavesMatchesAHTSync(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, uint64(i+1), tx.header.ID)
 
-		p, err := immuStore.aht.DataAt(uint64(i + 1))
-		require.NoError(t, err)
-
 		alh := tx.header.Alh()
-		require.Equal(t, alh[:], p)
+		equals, err := immuStore.aht.DataAtEquals(uint64(i+1), alh[:])
+		require.NoError(t, err)
+		require.True(t, equals)
 	}
 }
 
@@ -1812,11 +1811,10 @@ func TestLeavesMatchesAHTASync(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, uint64(i+1), tx.header.ID)
 
-		p, err := immuStore.aht.DataAt(uint64(i + 1))
-		require.NoError(t, err)
-
 		alh := tx.header.Alh()
-		require.Equal(t, alh[:], p)
+		equals, err := immuStore.aht.DataAtEquals(uint64(i+1), alh[:])
+		require.NoError(t, err)
+		require.True(t, equals)
 	}
 }
 
